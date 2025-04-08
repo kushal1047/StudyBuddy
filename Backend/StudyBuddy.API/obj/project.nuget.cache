@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "tBnA37Dso/c=",
+  "success": true,
+  "projectFilePath": "D:\\Personal Projects\\MobileApp\\StudyBuddy\\Backend\\StudyBuddy.API\\StudyBuddy.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kusah\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.3\\microsoft.aspnetcore.openapi.9.0.3.nupkg.sha512",
+    "C:\\Users\\kusah\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
