@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudyBuddy.API.Data;
+using StudyBuddy.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,9 @@ builder.Services.AddDbContext<StudyBuddyContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"),
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
     ));
+
+// Add Password Service
+builder.Services.AddScoped<IPasswordService, PasswordService>();
 
 // Add CORS for React Native app
 builder.Services.AddCors(options =>
