@@ -6,6 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import AuthNavigator from "./AuthNavigator";
 import DecksListScreen from "../screens/DecksListScreen";
 import CreateDeckScreen from "../screens/CreateDeckScreen";
+import DeckDetailsScreen from "../screens/DeckDetailsScreen";
 import { DecksStackParamList } from "../types/navigation.types";
 
 const Stack = createStackNavigator<DecksStackParamList>();
@@ -15,6 +16,7 @@ function MainNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="DecksList" component={DecksListScreen} />
       <Stack.Screen name="CreateDeck" component={CreateDeckScreen} />
+      <Stack.Screen name="DeckDetails" component={DeckDetailsScreen} />
     </Stack.Navigator>
   );
 }
