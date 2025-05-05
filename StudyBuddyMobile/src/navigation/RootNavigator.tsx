@@ -4,15 +4,26 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuth } from "../contexts/AuthContext";
 import AuthNavigator from "./AuthNavigator";
-import HomeScreen from "../screens/HomeScreen";
-import { RootStackParamList } from "../types/navigation.types";
+import DecksListScreen from "../screens/DecksListScreen";
+import CreateDeckScreen from "../screens/CreateDeckScreen";
+import { DecksStackParamList } from "../types/navigation.types";
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<DecksStackParamList>();
+
+function MainNavigator() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="DecksList" component={DecksListScreen} />
+      <Stack.Screen name="CreateDeck" component={CreateDeckScreen} />
+    </Stack.Navigator>
+  );
+}
+
+const RootStack = createStackNavigator();
 
 export default function RootNavigator() {
   const { isAuthenticated, isLoading } = useAuth();
 
-  // Show loading screen while checking auth state
   if (isLoading) {
     return (
       <View
@@ -30,15 +41,13 @@ export default function RootNavigator() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {isAuthenticated ? (
-          // User is signed in - show main app
-          <Stack.Screen name="Main" component={HomeScreen} />
+          <RootStack.Screen name="Main" component={MainNavigator} />
         ) : (
-          // User is NOT signed in - show auth screens
-          <Stack.Screen name="Auth" component={AuthNavigator} />
+          <RootStack.Screen name="Auth" component={AuthNavigator} />
         )}
-      </Stack.Navigator>
+      </RootStack.Navigator>
     </NavigationContainer>
   );
 }
