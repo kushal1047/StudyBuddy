@@ -8,6 +8,7 @@ import DecksListScreen from "../screens/DecksListScreen";
 import CreateDeckScreen from "../screens/CreateDeckScreen";
 import DeckDetailsScreen from "../screens/DeckDetailsScreen";
 import CreateFlashcardScreen from "../screens/CreateFlashcardScreen";
+import StudyModeScreen from "../screens/StudyModeScreen";
 import { DecksStackParamList } from "../types/navigation.types";
 
 const Stack = createStackNavigator<DecksStackParamList>();
@@ -19,6 +20,7 @@ function MainNavigator() {
       <Stack.Screen name="CreateDeck" component={CreateDeckScreen} />
       <Stack.Screen name="DeckDetails" component={DeckDetailsScreen} />
       <Stack.Screen name="CreateFlashcard" component={CreateFlashcardScreen} />
+      <Stack.Screen name="Study" component={StudyModeScreen} />
     </Stack.Navigator>
   );
 }

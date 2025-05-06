@@ -23,4 +23,5 @@ export type DecksStackParamList = {
   EditDeck: { deckId: number };
   CreateFlashcard: { deckId: number };
   EditFlashcard: { flashcardId: number; deckId: number };
+  Study: { deckId: number };
 };
