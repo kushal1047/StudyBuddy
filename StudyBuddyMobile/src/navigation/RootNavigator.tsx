@@ -4,26 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuth } from "../contexts/AuthContext";
 import AuthNavigator from "./AuthNavigator";
-import DecksListScreen from "../screens/DecksListScreen";
-import CreateDeckScreen from "../screens/CreateDeckScreen";
-import DeckDetailsScreen from "../screens/DeckDetailsScreen";
-import CreateFlashcardScreen from "../screens/CreateFlashcardScreen";
-import StudyModeScreen from "../screens/StudyModeScreen";
-import { DecksStackParamList } from "../types/navigation.types";
-
-const Stack = createStackNavigator<DecksStackParamList>();
-
-function MainNavigator() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="DecksList" component={DecksListScreen} />
-      <Stack.Screen name="CreateDeck" component={CreateDeckScreen} />
-      <Stack.Screen name="DeckDetails" component={DeckDetailsScreen} />
-      <Stack.Screen name="CreateFlashcard" component={CreateFlashcardScreen} />
-      <Stack.Screen name="Study" component={StudyModeScreen} />
-    </Stack.Navigator>
-  );
-}
+import MainTabNavigator from "./MainTabNavigator";
 
 const RootStack = createStackNavigator();
 
@@ -49,7 +30,7 @@ export default function RootNavigator() {
     <NavigationContainer>
       <RootStack.Navigator screenOptions={{ headerShown: false }}>
         {isAuthenticated ? (
-          <RootStack.Screen name="Main" component={MainNavigator} />
+          <RootStack.Screen name="Main" component={MainTabNavigator} />
         ) : (
           <RootStack.Screen name="Auth" component={AuthNavigator} />
         )}
