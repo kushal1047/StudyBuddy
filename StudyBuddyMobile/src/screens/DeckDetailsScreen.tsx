@@ -253,6 +253,12 @@ export default function DeckDetailsScreen({
           >
             {deckTitle}
           </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("EditDeck", { deckId })}
+            style={{ padding: 8 }}
+          >
+            <Text style={{ fontSize: 20 }}>✏️</Text>
+          </TouchableOpacity>
         </View>
 
         <View

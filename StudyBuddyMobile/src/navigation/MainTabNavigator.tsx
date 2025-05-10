@@ -7,6 +7,7 @@ import CreateDeckScreen from "../screens/CreateDeckScreen";
 import DeckDetailsScreen from "../screens/DeckDetailsScreen";
 import CreateFlashcardScreen from "../screens/CreateFlashcardScreen";
 import StudyModeScreen from "../screens/StudyModeScreen";
+import EditDeckScreen from "../screens/EditDeckScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
 const Tab = createBottomTabNavigator();
@@ -24,6 +25,7 @@ function DecksNavigator() {
         name="CreateFlashcard"
         component={CreateFlashcardScreen}
       />
+      <DecksStack.Screen name="EditDeck" component={EditDeckScreen} />
       <DecksStack.Screen name="Study" component={StudyModeScreen} />
     </DecksStack.Navigator>
   );
