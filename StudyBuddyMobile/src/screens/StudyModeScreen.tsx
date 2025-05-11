@@ -39,63 +39,15 @@ export default function StudyModeScreen({
     try {
       setIsLoading(true);
 
-      // Mock flashcards - same as DeckDetails
-      const mockFlashcards: Flashcard[] = [
-        {
-          id: 1,
-          question: 'What is "Hello" in Spanish?',
-          answer: "Hola",
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          deckId: deckId,
-          deckTitle: "Spanish Vocabulary",
-        },
-        {
-          id: 2,
-          question: 'What is "Thank you" in Spanish?',
-          answer: "Gracias",
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          deckId: deckId,
-          deckTitle: "Spanish Vocabulary",
-        },
-        {
-          id: 3,
-          question: 'What is "Goodbye" in Spanish?',
-          answer: "Adiós",
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          deckId: deckId,
-          deckTitle: "Spanish Vocabulary",
-        },
-        {
-          id: 4,
-          question: 'What is "Please" in Spanish?',
-          answer: "Por favor",
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          deckId: deckId,
-          deckTitle: "Spanish Vocabulary",
-        },
-        {
-          id: 5,
-          question: 'What is "Yes" in Spanish?',
-          answer: "Sí",
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          deckId: deckId,
-          deckTitle: "Spanish Vocabulary",
-        },
-      ];
+      // Use real API now!
+      const cards = await ApiService.getFlashcardsByDeck(deckId);
 
       // Shuffle flashcards for variety
-      const shuffled = [...mockFlashcards].sort(() => Math.random() - 0.5);
+      const shuffled = [...cards].sort(() => Math.random() - 0.5);
       setFlashcards(shuffled);
       if (shuffled.length > 0) {
         setDeckTitle(shuffled[0].deckTitle);
       }
-
-      // When ready: const cards = await ApiService.getFlashcardsByDeck(deckId);
     } catch (error) {
       console.error("Error loading flashcards:", error);
       Alert.alert("Error", "Failed to load flashcards");

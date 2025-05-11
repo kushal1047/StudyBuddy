@@ -34,48 +34,16 @@ export default function DeckDetailsScreen({
     try {
       setIsLoading(true);
 
-      // Mock flashcards data for testing
-      const mockFlashcards: Flashcard[] = [
-        {
-          id: 1,
-          question: 'What is "Hello" in Spanish?',
-          answer: "Hola",
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          deckId: deckId,
-          deckTitle: "Spanish Vocabulary",
-        },
-        {
-          id: 2,
-          question: 'What is "Thank you" in Spanish?',
-          answer: "Gracias",
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          deckId: deckId,
-          deckTitle: "Spanish Vocabulary",
-        },
-        {
-          id: 3,
-          question: 'What is "Goodbye" in Spanish?',
-          answer: "Adiós",
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          deckId: deckId,
-          deckTitle: "Spanish Vocabulary",
-        },
-      ];
-
-      setFlashcards(mockFlashcards);
-      if (mockFlashcards.length > 0) {
-        setDeckTitle(mockFlashcards[0].deckTitle);
+      // Use real API now!
+      const cards = await ApiService.getFlashcardsByDeck(deckId);
+      setFlashcards(cards);
+      if (cards.length > 0) {
+        setDeckTitle(cards[0].deckTitle);
       } else {
-        setDeckTitle("Deck Details");
+        // If no cards yet, get deck title from deck API
+        const deck = await ApiService.getDeck(deckId);
+        setDeckTitle(deck.title);
       }
-
-      // When ready to use real API:
-      // const cards = await ApiService.getFlashcardsByDeck(deckId);
-      // setFlashcards(cards);
-      // if (cards.length > 0) setDeckTitle(cards[0].deckTitle);
     } catch (error) {
       console.error("Error loading flashcards:", error);
       Alert.alert("Error", "Failed to load flashcards");

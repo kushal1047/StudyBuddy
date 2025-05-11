@@ -30,45 +30,16 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
     try {
       setIsLoading(true);
       if (user) {
-        // Mock data for testing UI
-        const mockDecks = [
-          {
-            id: 1,
-            title: "Spanish Vocabulary",
-            description: "Basic Spanish words and phrases",
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-            userId: user.id,
-            flashcardCount: 25,
-          },
-          {
-            id: 2,
-            title: "Biology Terms",
-            description: "Important biology concepts for exam",
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-            userId: user.id,
-            flashcardCount: 42,
-          },
-          {
-            id: 3,
-            title: "History Dates",
-            description: "",
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-            userId: user.id,
-            flashcardCount: 15,
-          },
-        ];
-        setDecks(mockDecks);
-
-        // When ready to use real API, uncomment this:
-        // const userDecks = await ApiService.getDecksByUser(user.id);
-        // setDecks(userDecks);
+        // Use real API now!
+        const userDecks = await ApiService.getDecksByUser(user.id);
+        setDecks(userDecks);
       }
     } catch (error) {
       console.error("Error loading decks:", error);
-      Alert.alert("Error", "Failed to load decks");
+      Alert.alert(
+        "Error",
+        "Failed to load decks. Make sure backend is running."
+      );
     } finally {
       setIsLoading(false);
     }

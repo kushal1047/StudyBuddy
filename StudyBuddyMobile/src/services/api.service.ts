@@ -16,7 +16,7 @@ import {
 
 // Configure the base URL for your API
 // Update this IP address to match your computer's IP
-const BASE_URL = "https://localhost:7167/api"; // Update port if different
+const BASE_URL = "https://7725cf5740dd.ngrok-free.app/api";
 
 // Create axios instance
 const apiClient = axios.create({
