@@ -59,25 +59,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsLoading(true);
       setError(null);
 
-      // For now, we'll simulate login since we don't have auth endpoints yet
-      // Later we'll uncomment this when we add JWT to backend:
-      // const authResponse = await ApiService.login(loginData);
-
-      // Temporary simulation - replace with real API call later
-      const mockUser: User = {
-        id: 1,
-        username: loginData.username,
-        email: `${loginData.username}@example.com`,
-        createdAt: new Date().toISOString(),
-      };
+      // Use real API authentication!
+      const authResponse = await ApiService.login(loginData);
 
       // Save auth data
-      await AuthStorage.saveToken("mock-token-123");
-      await AuthStorage.saveUser(mockUser);
-      setUser(mockUser);
+      await AuthStorage.saveToken(authResponse.token);
+      await AuthStorage.saveUser(authResponse.user);
+      setUser(authResponse.user);
     } catch (err: any) {
-      setError(err.message || "Login failed");
-      throw err;
+      const errorMessage =
+        err.response?.data?.message || err.message || "Login failed";
+      setError(errorMessage);
+      throw new Error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -88,24 +81,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsLoading(true);
       setError(null);
 
-      // For now, we'll simulate registration
-      // Later we'll use: const authResponse = await ApiService.register(userData);
-
-      // Temporary simulation
-      const mockUser: User = {
-        id: Date.now(), // Simple ID generation
-        username: userData.username,
-        email: userData.email,
-        createdAt: new Date().toISOString(),
-      };
+      // Use real API registration!
+      console.log("Registering user:", userData);
+      const authResponse = await ApiService.register(userData);
+      console.log("Registration response:", authResponse);
 
       // Save auth data
-      await AuthStorage.saveToken("mock-token-123");
-      await AuthStorage.saveUser(mockUser);
-      setUser(mockUser);
+      await AuthStorage.saveToken(authResponse.token);
+      await AuthStorage.saveUser(authResponse.user);
+      setUser(authResponse.user);
     } catch (err: any) {
-      setError(err.message || "Registration failed");
-      throw err;
+      console.error("Registration error:", err);
+      console.error("Error response:", err.response?.data);
+      const errorMessage =
+        err.response?.data?.message || err.message || "Registration failed";
+      setError(errorMessage);
+      throw new Error(errorMessage);
     } finally {
       setIsLoading(false);
     }

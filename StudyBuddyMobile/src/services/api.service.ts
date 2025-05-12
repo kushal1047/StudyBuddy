@@ -41,6 +41,20 @@ apiClient.interceptors.request.use(
   }
 );
 
+// Add response interceptor to log errors
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      // Log the full error details
+      console.error("API Error:", error.response.status);
+      console.error("Error Data:", error.response.data);
+      console.error("Error URL:", error.config.url);
+    }
+    return Promise.reject(error);
+  }
+);
+
 // API Service Class
 export class ApiService {
   // Auth endpoints

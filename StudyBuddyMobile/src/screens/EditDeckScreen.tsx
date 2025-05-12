@@ -34,12 +34,11 @@ export default function EditDeckScreen({
   const loadDeck = async () => {
     try {
       setIsLoading(true);
-      // Mock data - in real app would load from API
-      // const deck = await ApiService.getDeck(deckId);
 
-      // For now, use mock data
-      setTitle("Spanish Vocabulary");
-      setDescription("Basic Spanish words and phrases");
+      const deck = await ApiService.getDeck(deckId);
+
+      setTitle(deck.title);
+      setDescription(deck.description);
     } catch (error) {
       console.error("Error loading deck:", error);
       Alert.alert("Error", "Failed to load deck");
@@ -47,7 +46,6 @@ export default function EditDeckScreen({
       setIsLoading(false);
     }
   };
-
   const handleUpdateDeck = async () => {
     if (!title.trim()) {
       Alert.alert("Error", "Please enter a deck title");

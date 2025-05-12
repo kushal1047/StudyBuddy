@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "../contexts/AuthContext";
 import { Deck } from "../types/api.types";
 import ApiService from "../services/api.service";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface DecksListScreenProps {
   navigation: any;
@@ -22,9 +23,11 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    loadDecks();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      loadDecks();
+    }, [user])
+  );
 
   const loadDecks = async () => {
     try {

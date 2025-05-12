@@ -10,6 +10,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Flashcard } from "../types/api.types";
 import ApiService from "../services/api.service";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface DeckDetailsScreenProps {
   navigation: any;
@@ -26,9 +27,11 @@ export default function DeckDetailsScreen({
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    loadFlashcards();
-  }, [deckId]);
+  useFocusEffect(
+    useCallback(() => {
+      loadFlashcards();
+    }, [deckId])
+  );
 
   const loadFlashcards = async () => {
     try {

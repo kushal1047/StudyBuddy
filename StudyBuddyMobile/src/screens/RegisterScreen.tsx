@@ -62,8 +62,11 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
         password,
       });
       // Navigation will be handled automatically by the auth state change
-    } catch (err) {
-      Alert.alert("Registration Failed", error || "Something went wrong");
+    } catch (err: any) {
+      Alert.alert(
+        "Registration Failed",
+        err.message || error || "Something went wrong"
+      );
     }
   };
 
