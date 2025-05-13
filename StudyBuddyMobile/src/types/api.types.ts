@@ -76,3 +76,14 @@ export interface AuthResponse {
   token: string;
   user: User;
 }
+
+// Statistics types
+export interface UserStatistics {
+  totalDecks: number;
+  totalFlashcards: number;
+  totalStudySessions: number;
+  correctAnswers: number;
+  incorrectAnswers: number;
+  accuracyPercentage: number;
+  lastStudyDate: string | null;
+}

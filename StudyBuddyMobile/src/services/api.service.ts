@@ -12,6 +12,7 @@ import {
   UpdateFlashcardDto,
   LoginDto,
   AuthResponse,
+  UserStatistics,
 } from "../types/api.types";
 
 // Configure the base URL for your API
@@ -155,6 +156,12 @@ export class ApiService {
 
   static async deleteFlashcard(id: number): Promise<void> {
     await apiClient.delete(`/flashcards/${id}`);
+  }
+
+  // Statistics endpoints
+  static async getUserStatistics(userId: number): Promise<UserStatistics> {
+    const response = await apiClient.get(`/statistics/user/${userId}`);
+    return response.data;
   }
 }
 

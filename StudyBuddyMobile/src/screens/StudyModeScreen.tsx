@@ -68,6 +68,18 @@ export default function StudyModeScreen({
     setCorrectCount(newCorrect);
     setIncorrectCount(newIncorrect);
 
+    // Save study session to database (optional - can be done without blocking)
+    try {
+      // We'll need to add this endpoint later, for now just log it
+      console.log("Study session:", {
+        flashcardId: currentCard.id,
+        isCorrect,
+      });
+    } catch (error) {
+      // Don't block user if saving fails
+      console.error("Error saving study session:", error);
+    }
+
     if (currentIndex < flashcards.length - 1) {
       setCurrentIndex(currentIndex + 1);
       setIsFlipped(false);
