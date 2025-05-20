@@ -279,7 +279,7 @@ export default function ProfileScreen({ navigation }: ProfileScreenProps) {
                   marginTop: 4,
                 }}
               >
-                Study Sessions
+                Total Attempts
               </Text>
             </View>
 
