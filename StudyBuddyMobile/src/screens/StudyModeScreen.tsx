@@ -68,7 +68,7 @@ export default function StudyModeScreen({
     setCorrectCount(newCorrect);
     setIncorrectCount(newIncorrect);
 
-    // Save study session to database (optional - can be done without blocking)
+    // Save study session to database
     try {
       // We'll need to add this endpoint later, for now just log it
       console.log("Study session:", {
