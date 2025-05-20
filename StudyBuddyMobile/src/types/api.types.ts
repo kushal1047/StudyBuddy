@@ -87,3 +87,10 @@ export interface UserStatistics {
   accuracyPercentage: number;
   lastStudyDate: string | null;
 }
+
+// Study Session DTOs
+export interface CreateStudySessionDto {
+  flashcardId: number;
+  userId: number;
+  isCorrect: boolean;
+}

@@ -10,6 +10,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Flashcard } from "../types/api.types";
 import ApiService from "../services/api.service";
+import { useAuth } from "../contexts/AuthContext";
 
 interface StudyModeScreenProps {
   navigation: any;
@@ -30,6 +31,7 @@ export default function StudyModeScreen({
   const [correctCount, setCorrectCount] = useState(0);
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     loadFlashcards();
@@ -60,7 +62,7 @@ export default function StudyModeScreen({
     setIsFlipped(!isFlipped);
   };
 
-  const handleAnswer = (isCorrect: boolean) => {
+  const handleAnswer = async (isCorrect: boolean) => {
     const newCorrect = isCorrect ? correctCount + 1 : correctCount;
     const newIncorrect = isCorrect ? incorrectCount : incorrectCount + 1;
 
@@ -70,16 +72,20 @@ export default function StudyModeScreen({
 
     // Save study session to database
     try {
-      // We'll need to add this endpoint later, for now just log it
-      console.log("Study session:", {
-        flashcardId: currentCard.id,
-        isCorrect,
-      });
+      if (user) {
+        await ApiService.createStudySession({
+          flashcardId: currentCard.id,
+          userId: user.id,
+          isCorrect,
+        });
+        console.log("Study session saved successfully");
+      }
     } catch (error) {
       // Don't block user if saving fails
       console.error("Error saving study session:", error);
     }
 
+    // Move to next card
     if (currentIndex < flashcards.length - 1) {
       setCurrentIndex(currentIndex + 1);
       setIsFlipped(false);

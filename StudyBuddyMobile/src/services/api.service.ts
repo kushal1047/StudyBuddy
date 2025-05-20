@@ -10,6 +10,7 @@ import {
   Flashcard,
   CreateFlashcardDto,
   UpdateFlashcardDto,
+  CreateStudySessionDto,
   LoginDto,
   AuthResponse,
   UserStatistics,
@@ -162,6 +163,13 @@ export class ApiService {
   static async getUserStatistics(userId: number): Promise<UserStatistics> {
     const response = await apiClient.get(`/statistics/user/${userId}`);
     return response.data;
+  }
+
+  // Study Session endpoints
+  static async createStudySession(
+    sessionData: CreateStudySessionDto
+  ): Promise<void> {
+    await apiClient.post("/studysessions", sessionData);
   }
 }
 
