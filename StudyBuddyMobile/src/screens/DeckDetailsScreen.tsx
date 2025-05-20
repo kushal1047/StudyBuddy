@@ -131,12 +131,25 @@ export default function DeckDetailsScreen({
             </Text>
           </View>
         </View>
-        <TouchableOpacity
-          onPress={() => handleDeleteFlashcard(item.id)}
-          style={{ padding: 8 }}
-        >
-          <Text style={{ fontSize: 20 }}>🗑️</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row", gap: 8 }}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("EditFlashcard", {
+                flashcardId: item.id,
+                deckId: item.deckId,
+              })
+            }
+            style={{ padding: 8 }}
+          >
+            <Text style={{ fontSize: 20 }}>✏️</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => handleDeleteFlashcard(item.id)}
+            style={{ padding: 8 }}
+          >
+            <Text style={{ fontSize: 20 }}>🗑️</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

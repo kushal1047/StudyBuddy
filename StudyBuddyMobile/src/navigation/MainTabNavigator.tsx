@@ -6,6 +6,7 @@ import DecksListScreen from "../screens/DecksListScreen";
 import CreateDeckScreen from "../screens/CreateDeckScreen";
 import DeckDetailsScreen from "../screens/DeckDetailsScreen";
 import CreateFlashcardScreen from "../screens/CreateFlashcardScreen";
+import EditFlashcardScreen from "../screens/EditFlashCardscreen";
 import StudyModeScreen from "../screens/StudyModeScreen";
 import EditDeckScreen from "../screens/EditDeckScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -26,6 +27,7 @@ function DecksNavigator() {
         component={CreateFlashcardScreen}
       />
       <DecksStack.Screen name="EditDeck" component={EditDeckScreen} />
+      <DecksStack.Screen name="EditFlashcard" component={EditFlashcardScreen} />
       <DecksStack.Screen name="Study" component={StudyModeScreen} />
     </DecksStack.Navigator>
   );
