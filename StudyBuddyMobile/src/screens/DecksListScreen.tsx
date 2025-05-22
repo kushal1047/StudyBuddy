@@ -6,12 +6,13 @@ import {
   TouchableOpacity,
   RefreshControl,
   Alert,
+  TextInput,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useFocusEffect } from "@react-navigation/native";
 import { useAuth } from "../contexts/AuthContext";
 import { Deck } from "../types/api.types";
 import ApiService from "../services/api.service";
-import { useFocusEffect } from "@react-navigation/native";
 
 interface DecksListScreenProps {
   navigation: any;
@@ -22,6 +23,7 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
   const [decks, setDecks] = useState<Deck[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useFocusEffect(
     useCallback(() => {
@@ -33,23 +35,44 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
     try {
       setIsLoading(true);
       if (user) {
-        // Use real API now!
         const userDecks = await ApiService.getDecksByUser(user.id);
         setDecks(userDecks);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error loading decks:", error);
-      Alert.alert(
-        "Error",
-        "Failed to load decks. Make sure backend is running."
-      );
+      console.error("Error details:", error.response?.data);
+      Alert.alert("Error", "Failed to load decks");
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleSearch = async (query: string) => {
+    setSearchQuery(query);
+
+    if (!user) return;
+
+    try {
+      if (query.trim() === "") {
+        // If search is empty, load all decks
+        await loadDecks();
+      } else {
+        // Search with query
+        const searchResults = await ApiService.searchDecks(
+          user.id,
+          query.trim()
+        );
+        setDecks(searchResults);
+      }
+    } catch (error) {
+      console.error("Error searching decks:", error);
+      Alert.alert("Error", "Failed to search decks");
+    }
+  };
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
+    setSearchQuery(""); // Clear search on refresh
     await loadDecks();
     setRefreshing(false);
   }, []);
@@ -154,7 +177,9 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
         paddingHorizontal: 40,
       }}
     >
-      <Text style={{ fontSize: 48, marginBottom: 16 }}>📚</Text>
+      <Text style={{ fontSize: 48, marginBottom: 16 }}>
+        {searchQuery ? "🔍" : "📚"}
+      </Text>
       <Text
         style={{
           fontSize: 20,
@@ -164,7 +189,7 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
           marginBottom: 8,
         }}
       >
-        No Decks Yet
+        {searchQuery ? "No Decks Found" : "No Decks Yet"}
       </Text>
       <Text
         style={{
@@ -174,21 +199,25 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
           marginBottom: 24,
         }}
       >
-        Create your first deck to start studying with flashcards
+        {searchQuery
+          ? `No decks match "${searchQuery}"`
+          : "Create your first deck to start studying with flashcards"}
       </Text>
-      <TouchableOpacity
-        style={{
-          backgroundColor: "#3b82f6",
-          borderRadius: 8,
-          paddingHorizontal: 24,
-          paddingVertical: 12,
-        }}
-        onPress={() => navigation.navigate("CreateDeck")}
-      >
-        <Text style={{ color: "white", fontSize: 16, fontWeight: "600" }}>
-          Create Your First Deck
-        </Text>
-      </TouchableOpacity>
+      {!searchQuery && (
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#3b82f6",
+            borderRadius: 8,
+            paddingHorizontal: 24,
+            paddingVertical: 12,
+          }}
+          onPress={() => navigation.navigate("CreateDeck")}
+        >
+          <Text style={{ color: "white", fontSize: 16, fontWeight: "600" }}>
+            Create Your First Deck
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 
@@ -198,7 +227,8 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
       <View
         style={{
           paddingHorizontal: 20,
-          paddingVertical: 16,
+          paddingTop: 16,
+          paddingBottom: 12,
           backgroundColor: "white",
           borderBottomWidth: 1,
           borderBottomColor: "#e5e7eb",
@@ -209,6 +239,7 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            marginBottom: 12,
           }}
         >
           <View>
@@ -239,6 +270,41 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
               New
             </Text>
           </TouchableOpacity>
+        </View>
+
+        {/* Search Bar */}
+        <View
+          style={{
+            backgroundColor: "#f3f4f6",
+            borderRadius: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: 12,
+            paddingVertical: 10,
+          }}
+        >
+          <Text style={{ fontSize: 16, marginRight: 8 }}>🔍</Text>
+          <TextInput
+            style={{
+              flex: 1,
+              fontSize: 16,
+              color: "#1f2937",
+            }}
+            placeholder="Search decks..."
+            placeholderTextColor="#9ca3af"
+            value={searchQuery}
+            onChangeText={handleSearch}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          {searchQuery.length > 0 && (
+            <TouchableOpacity
+              onPress={() => handleSearch("")}
+              style={{ padding: 4 }}
+            >
+              <Text style={{ fontSize: 16, color: "#6b7280" }}>✕</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
 

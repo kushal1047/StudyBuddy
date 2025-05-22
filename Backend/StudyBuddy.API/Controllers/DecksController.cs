@@ -192,5 +192,34 @@ namespace StudyBuddy.API.Controllers
         {
             return _context.Decks.Any(e => e.Id == id);
         }
+
+        // GET: api/Decks/search?query=spanish&userId=1
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<DeckDto>>> SearchDecks([FromQuery] string query, [FromQuery] int userId)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                // If no query, return all user's decks
+                return await GetDecksByUser(userId);
+            }
+
+            var decks = await _context.Decks
+                .Where(d => d.UserId == userId &&
+                           (d.Title.Contains(query) || d.Description.Contains(query)))
+                .Include(d => d.Flashcards)
+                .Select(d => new DeckDto
+                {
+                    Id = d.Id,
+                    Title = d.Title,
+                    Description = d.Description,
+                    CreatedAt = d.CreatedAt,
+                    UpdatedAt = d.UpdatedAt,
+                    UserId = d.UserId,
+                    FlashcardCount = d.Flashcards.Count
+                })
+                .ToListAsync();
+
+            return decks;
+        }
     }
 }

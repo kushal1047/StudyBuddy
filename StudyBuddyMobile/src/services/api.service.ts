@@ -171,6 +171,13 @@ export class ApiService {
   ): Promise<void> {
     await apiClient.post("/studysessions", sessionData);
   }
+
+  static async searchDecks(userId: number, query: string): Promise<Deck[]> {
+    const response = await apiClient.get(`/decks/search`, {
+      params: { userId, query },
+    });
+    return response.data;
+  }
 }
 
 export default ApiService;
