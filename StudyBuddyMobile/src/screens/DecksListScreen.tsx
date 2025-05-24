@@ -34,10 +34,8 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
   const loadDecks = async () => {
     try {
       setIsLoading(true);
-      console.log("Loading decks for user:", user?.id);
       if (user) {
         const userDecks = await ApiService.getDecksByUser(user.id);
-        console.log("Decks loaded:", userDecks.length);
         setDecks(userDecks);
       }
     } catch (error: any) {
