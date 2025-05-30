@@ -13,6 +13,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useAuth } from "../contexts/AuthContext";
 import { Deck } from "../types/api.types";
 import ApiService from "../services/api.service";
+import DeckCardSkeleton from "../components/DeckCardSkeleton";
 
 interface DecksListScreenProps {
   navigation: any;
@@ -310,10 +311,11 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
 
       {/* Decks List */}
       {isLoading && decks.length === 0 ? (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <Text style={{ color: "#6b7280" }}>Loading decks...</Text>
+        <View style={{ padding: 20 }}>
+          <DeckCardSkeleton />
+          <DeckCardSkeleton />
+          <DeckCardSkeleton />
+          <DeckCardSkeleton />
         </View>
       ) : decks.length === 0 ? (
         renderEmptyState()
