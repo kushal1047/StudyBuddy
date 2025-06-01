@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -12,6 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "../contexts/AuthContext";
 import ApiService from "../services/api.service";
+import { showSuccessToast, showErrorToast } from "../utils/toast.helper";
 
 interface CreateDeckScreenProps {
   navigation: any;
@@ -27,12 +27,12 @@ export default function CreateDeckScreen({
 
   const handleCreateDeck = async () => {
     if (!title.trim()) {
-      Alert.alert("Error", "Please enter a deck title");
+      showErrorToast("Error", "Please enter a deck title");
       return;
     }
 
     if (!user) {
-      Alert.alert("Error", "User not found");
+      showErrorToast("Error", "User not found");
       return;
     }
 
@@ -43,15 +43,11 @@ export default function CreateDeckScreen({
         description: description.trim(),
       });
 
-      Alert.alert("Success", "Deck created successfully!", [
-        {
-          text: "OK",
-          onPress: () => navigation.goBack(),
-        },
-      ]);
+      showSuccessToast("Success", "Deck created successfully!");
+      navigation.goBack();
     } catch (error) {
       console.error("Error creating deck:", error);
-      Alert.alert("Error", "Failed to create deck. Please try again.");
+      showErrorToast("Error", "Failed to create deck. Please try again.");
     } finally {
       setIsLoading(false);
     }
