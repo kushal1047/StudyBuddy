@@ -14,6 +14,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Deck } from "../types/api.types";
 import ApiService from "../services/api.service";
 import DeckCardSkeleton from "../components/DeckCardSkeleton";
+import { useNetwork } from "../contexts/NetworkContext";
 
 interface DecksListScreenProps {
   navigation: any;
@@ -25,6 +26,7 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const { isConnected } = useNetwork();
 
   useFocusEffect(
     useCallback(() => {
@@ -224,6 +226,28 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f9fafb" }}>
+      {!isConnected && (
+        <View
+          style={{
+            backgroundColor: "#fef2f2",
+            paddingVertical: 8,
+            paddingHorizontal: 20,
+            borderBottomWidth: 1,
+            borderBottomColor: "#fecaca",
+          }}
+        >
+          <Text
+            style={{
+              color: "#991b1b",
+              fontSize: 14,
+              textAlign: "center",
+              fontWeight: "600",
+            }}
+          >
+            📡 You're offline - Some features may not work
+          </Text>
+        </View>
+      )}
       {/* Header */}
       <View
         style={{
