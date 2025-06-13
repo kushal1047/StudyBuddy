@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import ContentLoader, { Rect } from "react-content-loader/native";
 
 export default function FlashcardSkeleton() {
   return (
@@ -17,25 +17,18 @@ export default function FlashcardSkeleton() {
         elevation: 2,
       }}
     >
-      <SkeletonPlaceholder>
-        <View>
-          <View
-            style={{ width: 80, height: 12, borderRadius: 4, marginBottom: 8 }}
-          />
-          <View
-            style={{
-              width: "100%",
-              height: 16,
-              borderRadius: 4,
-              marginBottom: 16,
-            }}
-          />
-          <View
-            style={{ width: 80, height: 12, borderRadius: 4, marginBottom: 8 }}
-          />
-          <View style={{ width: "70%", height: 16, borderRadius: 4 }} />
-        </View>
-      </SkeletonPlaceholder>
+      <ContentLoader
+        speed={1}
+        width={350}
+        height={120}
+        backgroundColor="#f3f3f3"
+        foregroundColor="#ecebeb"
+      >
+        <Rect x="0" y="0" rx="4" ry="4" width="80" height="12" />
+        <Rect x="0" y="20" rx="4" ry="4" width="300" height="16" />
+        <Rect x="0" y="50" rx="4" ry="4" width="80" height="12" />
+        <Rect x="0" y="70" rx="4" ry="4" width="250" height="16" />
+      </ContentLoader>
     </View>
   );
 }

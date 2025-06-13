@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import ContentLoader, { Rect } from "react-content-loader/native";
 
 export default function DeckCardSkeleton() {
   return (
@@ -17,22 +17,17 @@ export default function DeckCardSkeleton() {
         elevation: 2,
       }}
     >
-      <SkeletonPlaceholder>
-        <View>
-          <View
-            style={{ width: 200, height: 20, borderRadius: 4, marginBottom: 8 }}
-          />
-          <View
-            style={{
-              width: 150,
-              height: 16,
-              borderRadius: 4,
-              marginBottom: 12,
-            }}
-          />
-          <View style={{ width: 80, height: 24, borderRadius: 12 }} />
-        </View>
-      </SkeletonPlaceholder>
+      <ContentLoader
+        speed={1}
+        width={350}
+        height={100}
+        backgroundColor="#f3f3f3"
+        foregroundColor="#ecebeb"
+      >
+        <Rect x="0" y="0" rx="4" ry="4" width="200" height="20" />
+        <Rect x="0" y="30" rx="4" ry="4" width="250" height="16" />
+        <Rect x="0" y="60" rx="12" ry="12" width="80" height="24" />
+      </ContentLoader>
     </View>
   );
 }
