@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ApiService from "../services/api.service";
+import { showSuccessToast, showErrorToast } from "../utils/toast.helper";
 
 interface CreateFlashcardScreenProps {
   navigation: any;
@@ -28,12 +29,12 @@ export default function CreateFlashcardScreen({
 
   const handleCreateFlashcard = async () => {
     if (!question.trim()) {
-      Alert.alert("Error", "Please enter a question");
+      showErrorToast("Error", "Please enter a question");
       return;
     }
 
     if (!answer.trim()) {
-      Alert.alert("Error", "Please enter an answer");
+      showErrorToast("Error", "Please enter an answer");
       return;
     }
 
@@ -44,22 +45,12 @@ export default function CreateFlashcardScreen({
         answer: answer.trim(),
       });
 
-      Alert.alert("Success", "Flashcard created successfully!", [
-        {
-          text: "Add Another",
-          onPress: () => {
-            setQuestion("");
-            setAnswer("");
-          },
-        },
-        {
-          text: "Done",
-          onPress: () => navigation.goBack(),
-        },
-      ]);
+      showSuccessToast("Success", "Flashcard created!");
+      setQuestion("");
+      setAnswer("");
     } catch (error) {
       console.error("Error creating flashcard:", error);
-      Alert.alert("Error", "Failed to create flashcard. Please try again.");
+      showErrorToast("Error", "Failed to create flashcard");
     } finally {
       setIsLoading(false);
     }
