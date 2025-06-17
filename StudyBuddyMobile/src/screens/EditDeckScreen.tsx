@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { showSuccessToast, showErrorToast } from "../utils/toast.helper";
 import ApiService from "../services/api.service";
 
 interface EditDeckScreenProps {
@@ -34,21 +35,19 @@ export default function EditDeckScreen({
   const loadDeck = async () => {
     try {
       setIsLoading(true);
-
       const deck = await ApiService.getDeck(deckId);
-
       setTitle(deck.title);
       setDescription(deck.description);
     } catch (error) {
       console.error("Error loading deck:", error);
-      Alert.alert("Error", "Failed to load deck");
+      showErrorToast("Error", "Failed to load deck");
     } finally {
       setIsLoading(false);
     }
   };
   const handleUpdateDeck = async () => {
     if (!title.trim()) {
-      Alert.alert("Error", "Please enter a deck title");
+      showErrorToast("Error", "Please enter a deck title");
       return;
     }
 
@@ -59,15 +58,11 @@ export default function EditDeckScreen({
         description: description.trim(),
       });
 
-      Alert.alert("Success", "Deck updated successfully!", [
-        {
-          text: "OK",
-          onPress: () => navigation.goBack(),
-        },
-      ]);
+      showSuccessToast("Success", "Deck updated successfully!");
+      navigation.goBack();
     } catch (error) {
       console.error("Error updating deck:", error);
-      Alert.alert("Error", "Failed to update deck. Please try again.");
+      showErrorToast("Error", "Failed to update deck");
     } finally {
       setIsSaving(false);
     }
