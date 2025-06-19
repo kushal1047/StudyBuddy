@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ApiService from "../services/api.service";
+import { showSuccessToast, showErrorToast } from "../utils/toast.helper";
 
 interface EditFlashcardScreenProps {
   navigation: any;
@@ -39,7 +40,7 @@ export default function EditFlashcardScreen({
       setAnswer(flashcard.answer);
     } catch (error) {
       console.error("Error loading flashcard:", error);
-      Alert.alert("Error", "Failed to load flashcard");
+      showErrorToast("Error", "Failed to load flashcard");
     } finally {
       setIsLoading(false);
     }
@@ -47,12 +48,12 @@ export default function EditFlashcardScreen({
 
   const handleUpdateFlashcard = async () => {
     if (!question.trim()) {
-      Alert.alert("Error", "Please enter a question");
+      showErrorToast("Error", "Please enter a question");
       return;
     }
 
     if (!answer.trim()) {
-      Alert.alert("Error", "Please enter an answer");
+      showErrorToast("Error", "Please enter an answer");
       return;
     }
 
@@ -63,15 +64,11 @@ export default function EditFlashcardScreen({
         answer: answer.trim(),
       });
 
-      Alert.alert("Success", "Flashcard updated successfully!", [
-        {
-          text: "OK",
-          onPress: () => navigation.goBack(),
-        },
-      ]);
+      showSuccessToast("Success", "Flashcard updated successfully!");
+      navigation.goBack();
     } catch (error) {
       console.error("Error updating flashcard:", error);
-      Alert.alert("Error", "Failed to update flashcard. Please try again.");
+      showErrorToast("Error", "Failed to update flashcard");
     } finally {
       setIsSaving(false);
     }
