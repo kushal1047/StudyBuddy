@@ -15,6 +15,7 @@ import { Deck } from "../types/api.types";
 import ApiService from "../services/api.service";
 import DeckCardSkeleton from "../components/DeckCardSkeleton";
 import { useNetwork } from "../contexts/NetworkContext";
+import { showSuccessToast, showErrorToast } from "../utils/toast.helper";
 
 interface DecksListScreenProps {
   navigation: any;
@@ -93,9 +94,9 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
             try {
               await ApiService.deleteDeck(deckId);
               setDecks(decks.filter((d) => d.id !== deckId));
-              Alert.alert("Success", "Deck deleted successfully");
+              showSuccessToast("Deleted", "Deck deleted successfully");
             } catch (error) {
-              Alert.alert("Error", "Failed to delete deck");
+              showErrorToast("Error", "Failed to delete deck");
             }
           },
         },
