@@ -31,4 +31,13 @@ namespace StudyBuddy.API.DTOs
         [MaxLength(500)]
         public string? Description { get; set; }
     }
+
+    public class PaginatedDecksDto
+    {
+        public List<DeckDto> Decks { get; set; } = new List<DeckDto>();
+        public int Page { get; set; }
+        public int PageSize { get; set; }
+        public int TotalCount { get; set; }
+        public int TotalPages { get; set; }
+    }
 }

@@ -40,7 +40,10 @@ namespace StudyBuddy.API.Controllers
 
         // GET: api/Decks/user/5
         [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<DeckDto>>> GetDecksByUser(int userId)
+        public async Task<ActionResult<PaginatedDecksDto>> GetDecksByUser(
+            int userId,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 10)
         {
             // Check if user exists
             if (!await _context.Users.AnyAsync(u => u.Id == userId))
@@ -48,9 +51,17 @@ namespace StudyBuddy.API.Controllers
                 return NotFound("User not found");
             }
 
-            var decks = await _context.Decks
+            var query = _context.Decks
                 .Where(d => d.UserId == userId)
                 .Include(d => d.Flashcards)
+                .OrderByDescending(d => d.UpdatedAt);
+
+            var totalCount = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            var decks = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .Select(d => new DeckDto
                 {
                     Id = d.Id,
@@ -63,7 +74,14 @@ namespace StudyBuddy.API.Controllers
                 })
                 .ToListAsync();
 
-            return decks;
+            return Ok(new PaginatedDecksDto
+            {
+                Decks = decks,
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages
+            });
         }
 
         // GET: api/Decks/5
@@ -199,14 +217,31 @@ namespace StudyBuddy.API.Controllers
         {
             if (string.IsNullOrWhiteSpace(query))
             {
-                // If no query, return all user's decks
-                return await GetDecksByUser(userId);
+                // If no query, get all user's decks (without pagination for search)
+                var allDecks = await _context.Decks
+                    .Where(d => d.UserId == userId)
+                    .Include(d => d.Flashcards)
+                    .OrderByDescending(d => d.UpdatedAt)
+                    .Select(d => new DeckDto
+                    {
+                        Id = d.Id,
+                        Title = d.Title,
+                        Description = d.Description,
+                        CreatedAt = d.CreatedAt,
+                        UpdatedAt = d.UpdatedAt,
+                        UserId = d.UserId,
+                        FlashcardCount = d.Flashcards.Count
+                    })
+                    .ToListAsync();
+
+                return Ok(allDecks);
             }
 
             var decks = await _context.Decks
                 .Where(d => d.UserId == userId &&
                            (d.Title.Contains(query) || d.Description.Contains(query)))
                 .Include(d => d.Flashcards)
+                .OrderByDescending(d => d.UpdatedAt)
                 .Select(d => new DeckDto
                 {
                     Id = d.Id,
@@ -219,7 +254,7 @@ namespace StudyBuddy.API.Controllers
                 })
                 .ToListAsync();
 
-            return decks;
+            return Ok(decks);
         }
     }
 }
