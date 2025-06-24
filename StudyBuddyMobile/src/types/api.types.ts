@@ -94,3 +94,12 @@ export interface CreateStudySessionDto {
   userId: number;
   isCorrect: boolean;
 }
+
+// Pagination types
+export interface PaginatedDecks {
+  decks: Deck[];
+  page: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+}
