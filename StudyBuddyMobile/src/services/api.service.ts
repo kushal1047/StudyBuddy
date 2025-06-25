@@ -14,6 +14,7 @@ import {
   LoginDto,
   AuthResponse,
   UserStatistics,
+  PaginatedDecks,
 } from "../types/api.types";
 
 // Configure the base URL for your API
@@ -100,8 +101,14 @@ export class ApiService {
     return response.data;
   }
 
-  static async getDecksByUser(userId: number): Promise<Deck[]> {
-    const response = await apiClient.get(`/decks/user/${userId}`);
+  static async getDecksByUser(
+    userId: number,
+    page: number = 1,
+    pageSize: number = 20
+  ): Promise<PaginatedDecks> {
+    const response = await apiClient.get(`/decks/user/${userId}`, {
+      params: { page, pageSize },
+    });
     return response.data;
   }
 
