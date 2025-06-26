@@ -28,6 +28,9 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { isConnected } = useNetwork();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -35,22 +38,40 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
     }, [user])
   );
 
-  const loadDecks = async () => {
+  const loadDecks = async (page: number = 1, append: boolean = false) => {
     try {
-      setIsLoading(true);
+      if (page === 1) setIsLoading(true);
+      console.log("Loading decks for user:", user?.id, "page:", page);
+
       if (user) {
-        const userDecks = await ApiService.getDecksByUser(user.id);
-        setDecks(userDecks);
+        const response = await ApiService.getDecksByUser(user.id, page, 20);
+        console.log("Decks loaded:", response.decks.length);
+
+        if (append) {
+          setDecks((prevDecks) => [...prevDecks, ...response.decks]);
+        } else {
+          setDecks(response.decks);
+        }
+
+        setHasMore(page < response.totalPages);
+        setCurrentPage(page);
       }
     } catch (error: any) {
       console.error("Error loading decks:", error);
       console.error("Error details:", error.response?.data);
-      Alert.alert("Error", "Failed to load decks");
+      showErrorToast("Error", "Failed to load decks");
     } finally {
       setIsLoading(false);
+      setIsLoadingMore(false);
     }
   };
 
+  const loadMoreDecks = async () => {
+    if (!isLoadingMore && hasMore && !searchQuery) {
+      setIsLoadingMore(true);
+      await loadDecks(currentPage + 1, true);
+    }
+  };
   const handleSearch = async (query: string) => {
     setSearchQuery(query);
 
@@ -356,6 +377,15 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
               onRefresh={onRefresh}
               colors={["#3b82f6"]}
             />
+          }
+          onEndReached={loadMoreDecks}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+            isLoadingMore ? (
+              <View style={{ paddingVertical: 20 }}>
+                <DeckCardSkeleton />
+              </View>
+            ) : null
           }
         />
       )}
