@@ -41,11 +41,9 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
   const loadDecks = async (page: number = 1, append: boolean = false) => {
     try {
       if (page === 1) setIsLoading(true);
-      console.log("Loading decks for user:", user?.id, "page:", page);
 
       if (user) {
         const response = await ApiService.getDecksByUser(user.id, page, 20);
-        console.log("Decks loaded:", response.decks.length);
 
         if (append) {
           setDecks((prevDecks) => [...prevDecks, ...response.decks]);
