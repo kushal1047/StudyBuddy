@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "I5lhXIcY9+M=",
+  "dgSpecHash": "w1rir2rVxlk=",
   "success": true,
-  "projectFilePath": "D:\\Personal Projects\\MobileApp\\StudyBuddy\\backend\\StudyBuddy.API\\StudyBuddy.API.csproj",
+  "projectFilePath": "D:\\Personal Projects\\MobileApp\\StudyBuddy\\Backend\\StudyBuddy.API\\StudyBuddy.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kusah\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\kusah\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\9.0.9\\microsoft.aspnetcore.authentication.jwtbearer.9.0.9.nupkg.sha512",
