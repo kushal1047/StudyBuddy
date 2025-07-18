@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeckCardSkeleton should match snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "white",
+      "borderRadius": 12,
+      "elevation": 2,
+      "marginBottom": 12,
+      "padding": 16,
+      "shadowColor": "#000",
+      "shadowOffset": {
+        "height": 1,
+        "width": 0,
+      },
+      "shadowOpacity": 0.1,
+      "shadowRadius": 4,
+    }
+  }
+>
+  <RNSVGSvgView
+    bbHeight={100}
+    bbWidth={350}
+    focusable={false}
+    height={100}
+    interval={0.25}
+    style={
+      [
+        {
+          "backgroundColor": "transparent",
+          "borderWidth": 0,
+        },
+        {},
+        {
+          "flex": 0,
+          "height": 100,
+          "width": 350,
+        },
+      ]
+    }
+    width={350}
+  >
+    <RNSVGGroup
+      fill={
+        {
+          "payload": 4278190080,
+          "type": 0,
+        }
+      }
+    >
+      <RNSVGRect
+        clipPath="lquku8-animated-diff"
+        fill={
+          {
+            "brushRef": "lquku8-diff",
+            "type": 1,
+          }
+        }
+        height="100%"
+        propList={
+          [
+            "fill",
+          ]
+        }
+        width="100%"
+        x="0"
+        y="0"
+      />
+      <RNSVGDefs>
+        <RNSVGClipPath
+          fill={
+            {
+              "payload": 4278190080,
+              "type": 0,
+            }
+          }
+          name="lquku8-animated-diff"
+        >
+          <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+            height="20"
+            rx="4"
+            ry="4"
+            width="200"
+            x="0"
+            y="0"
+          />
+          <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+            height="16"
+            rx="4"
+            ry="4"
+            width="250"
+            x="0"
+            y="30"
+          />
+          <RNSVGRect
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+            height="24"
+            rx="12"
+            ry="12"
+            width="80"
+            x="0"
+            y="60"
+          />
+        </RNSVGClipPath>
+        <RNSVGLinearGradient
+          gradient={
+            [
+              0,
+              -789517,
+              0.5,
+              -1250325,
+              1,
+              -789517,
+            ]
+          }
+          gradientTransform={null}
+          gradientUnits={0}
+          name="lquku8-diff"
+          x1="-100%"
+          x2="0%"
+          y1={0}
+          y2={0}
+        />
+      </RNSVGDefs>
+    </RNSVGGroup>
+  </RNSVGSvgView>
+</View>
+`;
