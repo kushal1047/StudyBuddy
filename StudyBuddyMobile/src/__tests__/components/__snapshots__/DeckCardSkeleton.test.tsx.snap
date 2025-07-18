@@ -50,10 +50,10 @@ exports[`DeckCardSkeleton should match snapshot 1`] = `
       }
     >
       <RNSVGRect
-        clipPath="lquku8-animated-diff"
+        clipPath="nh6xa1b-animated-diff"
         fill={
           {
-            "brushRef": "lquku8-diff",
+            "brushRef": "nh6xa1b-diff",
             "type": 1,
           }
         }
@@ -75,7 +75,7 @@ exports[`DeckCardSkeleton should match snapshot 1`] = `
               "type": 0,
             }
           }
-          name="lquku8-animated-diff"
+          name="nh6xa1b-animated-diff"
         >
           <RNSVGRect
             fill={
@@ -133,7 +133,7 @@ exports[`DeckCardSkeleton should match snapshot 1`] = `
           }
           gradientTransform={null}
           gradientUnits={0}
-          name="lquku8-diff"
+          name="nh6xa1b-diff"
           x1="-100%"
           x2="0%"
           y1={0}

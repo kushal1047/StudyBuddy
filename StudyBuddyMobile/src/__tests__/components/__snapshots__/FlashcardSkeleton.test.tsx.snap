@@ -50,10 +50,10 @@ exports[`FlashcardSkeleton should match snapshot 1`] = `
       }
     >
       <RNSVGRect
-        clipPath="gq7zcnp-animated-diff"
+        clipPath="ak64nq-animated-diff"
         fill={
           {
-            "brushRef": "gq7zcnp-diff",
+            "brushRef": "ak64nq-diff",
             "type": 1,
           }
         }
@@ -75,7 +75,7 @@ exports[`FlashcardSkeleton should match snapshot 1`] = `
               "type": 0,
             }
           }
-          name="gq7zcnp-animated-diff"
+          name="ak64nq-animated-diff"
         >
           <RNSVGRect
             fill={
@@ -147,7 +147,7 @@ exports[`FlashcardSkeleton should match snapshot 1`] = `
           }
           gradientTransform={null}
           gradientUnits={0}
-          name="gq7zcnp-diff"
+          name="ak64nq-diff"
           x1="-100%"
           x2="0%"
           y1={0}
