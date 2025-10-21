@@ -5,7 +5,7 @@ const AUTH_TOKEN_KEY = "auth_token";
 const USER_DATA_KEY = "user_data";
 
 export class AuthStorage {
-  // Token management
+  // Handle auth token storage
   static async saveToken(token: string): Promise<void> {
     try {
       await AsyncStorage.setItem(AUTH_TOKEN_KEY, token);
@@ -31,7 +31,7 @@ export class AuthStorage {
     }
   }
 
-  // User data management
+  // Handle user data storage
   static async saveUser(user: User): Promise<void> {
     try {
       await AsyncStorage.setItem(USER_DATA_KEY, JSON.stringify(user));
@@ -58,7 +58,7 @@ export class AuthStorage {
     }
   }
 
-  // Clear all auth data
+  // Remove all stored auth info
   static async clearAll(): Promise<void> {
     try {
       await AsyncStorage.multiRemove([AUTH_TOKEN_KEY, USER_DATA_KEY]);

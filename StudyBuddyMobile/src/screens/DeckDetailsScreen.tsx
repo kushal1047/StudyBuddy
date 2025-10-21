@@ -43,7 +43,7 @@ export default function DeckDetailsScreen({
       if (cards.length > 0) {
         setDeckTitle(cards[0].deckTitle);
       } else {
-        // If no cards yet, get deck title from deck API
+        // No cards exist, so get the deck title separately
         const deck = await ApiService.getDeck(deckId);
         setDeckTitle(deck.title);
       }

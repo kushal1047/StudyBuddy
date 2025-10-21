@@ -24,19 +24,19 @@ namespace StudyBuddy.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<AuthResponseDto>> Register(CreateUserDto createUserDto)
         {
-            // Check if username already exists
+            // Make sure username is unique
             if (await _context.Users.AnyAsync(u => u.Username == createUserDto.Username))
             {
                 return BadRequest(new { message = "Username already exists" });
             }
 
-            // Check if email already exists
+            // Make sure email is unique
             if (await _context.Users.AnyAsync(u => u.Email == createUserDto.Email))
             {
                 return BadRequest(new { message = "Email already exists" });
             }
 
-            // Create new user
+            // Set up the new user account
             var user = new User
             {
                 Username = createUserDto.Username,
@@ -48,7 +48,7 @@ namespace StudyBuddy.API.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            // Return user data (without password)
+            // Send back user info (no password)
             var userDto = new UserDto
             {
                 Id = user.Id,
@@ -59,7 +59,7 @@ namespace StudyBuddy.API.Controllers
 
             var response = new AuthResponseDto
             {
-                Token = "mock-token-" + user.Id, // Simple token for now
+                Token = "mock-token-" + user.Id, // TODO: implement proper JWT tokens
                 User = userDto
             };
 
@@ -70,7 +70,7 @@ namespace StudyBuddy.API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<AuthResponseDto>> Login(LoginDto loginDto)
         {
-            // Find user by username
+            // Look up the user account
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginDto.Username);
 
             if (user == null)
@@ -78,13 +78,13 @@ namespace StudyBuddy.API.Controllers
                 return Unauthorized(new { message = "Invalid username or password" });
             }
 
-            // Verify password
+            // Check if password is correct
             if (!_passwordService.VerifyPassword(loginDto.Password, user.PasswordHash))
             {
                 return Unauthorized(new { message = "Invalid username or password" });
             }
 
-            // Return user data
+            // Send back user info
             var userDto = new UserDto
             {
                 Id = user.Id,
@@ -95,7 +95,7 @@ namespace StudyBuddy.API.Controllers
 
             var response = new AuthResponseDto
             {
-                Token = "mock-token-" + user.Id, // Simple token for now
+                Token = "mock-token-" + user.Id, // TODO: implement proper JWT tokens
                 User = userDto
             };
 

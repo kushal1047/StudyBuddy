@@ -21,7 +21,7 @@ namespace StudyBuddy.API.Controllers
         [HttpGet("deck/{deckId}")]
         public async Task<ActionResult<IEnumerable<FlashcardDto>>> GetFlashcardsByDeck(int deckId)
         {
-            // Check if deck exists
+            // Make sure the deck is valid
             if (!await _context.Decks.AnyAsync(d => d.Id == deckId))
             {
                 return NotFound("Deck not found");

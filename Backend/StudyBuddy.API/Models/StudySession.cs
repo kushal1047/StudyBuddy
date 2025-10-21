@@ -1,5 +1,6 @@
 namespace StudyBuddy.API.Models
 {
+    // Record of a user studying a flashcard
     public class StudySession
     {
         public int Id { get; set; }

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyBuddy.API.Models
 {
+    // Collection of flashcards for studying
     public class Deck
     {
         public int Id { get; set; }

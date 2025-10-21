@@ -59,7 +59,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsLoading(true);
       setError(null);
 
-      // Use real API authentication!
+      // Call the backend login endpoint
       const authResponse = await ApiService.login(loginData);
 
       // Save auth data
@@ -81,7 +81,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsLoading(true);
       setError(null);
 
-      // Use real API registration!
+      // Call the backend registration endpoint
       console.log("Registering user:", userData);
       const authResponse = await ApiService.register(userData);
       console.log("Registration response:", authResponse);

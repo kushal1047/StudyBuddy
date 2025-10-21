@@ -30,7 +30,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     try {
       clearError();
       await login({ username: username.trim(), password });
-      // Navigation will be handled automatically by the auth state change
+      // AuthContext will handle navigation after successful login
     } catch (err) {
       Alert.alert("Login Failed", error || "Something went wrong");
     }

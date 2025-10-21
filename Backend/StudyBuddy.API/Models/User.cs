@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyBuddy.API.Models
 {
+    // User account information
     public class User
     {
         public int Id { get; set; }

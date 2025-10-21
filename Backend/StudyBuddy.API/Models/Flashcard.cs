@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyBuddy.API.Models
 {
+    // Individual question/answer pair for studying
     public class Flashcard
     {
         public int Id { get; set; }

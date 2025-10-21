@@ -1,5 +1,6 @@
 import Toast from "react-native-toast-message";
 
+// Helper functions for showing toast notifications
 export const showSuccessToast = (message: string, description?: string) => {
   Toast.show({
     type: "success",
@@ -10,6 +11,7 @@ export const showSuccessToast = (message: string, description?: string) => {
   });
 };
 
+// Show error toast with red styling
 export const showErrorToast = (message: string, description?: string) => {
   Toast.show({
     type: "error",
@@ -20,6 +22,7 @@ export const showErrorToast = (message: string, description?: string) => {
   });
 };
 
+// Show info toast with blue styling
 export const showInfoToast = (message: string, description?: string) => {
   Toast.show({
     type: "info",

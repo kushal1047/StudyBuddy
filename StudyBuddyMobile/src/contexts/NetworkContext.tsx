@@ -39,7 +39,7 @@ export const NetworkProvider: React.FC<NetworkProviderProps> = ({
       setIsConnected(connected);
       setIsInternetReachable(reachable);
 
-      // Show toast when connection changes
+      // Notify user about connection status changes
       if (!connected && !wasOffline) {
         showErrorToast("No Internet", "You are currently offline");
         setWasOffline(true);

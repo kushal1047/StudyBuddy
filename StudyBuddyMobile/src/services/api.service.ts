@@ -17,11 +17,10 @@ import {
   PaginatedDecks,
 } from "../types/api.types";
 
-// Configure the base URL for your API
-// Update this IP address to match your computer's IP
-const BASE_URL = "https://e392be978a3b.ngrok-free.app/api";
+// API base URL - update this to match your backend server
+const BASE_URL = "https://444b110284c5.ngrok-free.app/api";
 
-// Create axios instance
+// Set up the HTTP client
 const apiClient = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
@@ -30,7 +29,7 @@ const apiClient = axios.create({
   },
 });
 
-// Add request interceptor to include auth token
+// Automatically add auth token to requests
 apiClient.interceptors.request.use(
   async (config) => {
     const token = await AsyncStorage.getItem("auth_token");
@@ -44,12 +43,12 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Add response interceptor to log errors
+// Log API errors for debugging
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
-      // Log the full error details
+      // Log detailed error info
       console.error("API Error:", error.response.status);
       console.error("Error Data:", error.response.data);
       console.error("Error URL:", error.config.url);
@@ -58,7 +57,7 @@ apiClient.interceptors.response.use(
   }
 );
 
-// API Service Class
+// Main API service class
 export class ApiService {
   // Auth endpoints
   static async login(loginData: LoginDto): Promise<AuthResponse> {

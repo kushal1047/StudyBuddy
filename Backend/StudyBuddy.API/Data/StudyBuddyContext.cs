@@ -18,7 +18,7 @@ namespace StudyBuddy.API.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // User entity configuration
+            // Set up user table constraints
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -26,7 +26,7 @@ namespace StudyBuddy.API.Data
                 entity.HasIndex(e => e.Email).IsUnique();
             });
 
-            // Deck entity configuration
+            // Set up deck relationships
             modelBuilder.Entity<Deck>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -36,7 +36,7 @@ namespace StudyBuddy.API.Data
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // Flashcard entity configuration
+            // Set up flashcard relationships
             modelBuilder.Entity<Flashcard>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -46,7 +46,7 @@ namespace StudyBuddy.API.Data
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // StudySession entity configuration
+            // Set up study session relationships
             modelBuilder.Entity<StudySession>(entity =>
             {
                 entity.HasKey(e => e.Id);

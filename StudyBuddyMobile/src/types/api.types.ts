@@ -1,4 +1,4 @@
-// API Response Types (matching our backend DTOs)
+// Type definitions for API requests and responses
 export interface User {
   id: number;
   username: string;

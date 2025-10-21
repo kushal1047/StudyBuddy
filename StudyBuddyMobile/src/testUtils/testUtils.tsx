@@ -1,7 +1,7 @@
 import React from "react";
 import { render, RenderOptions } from "@testing-library/react-native";
 
-// Mock providers wrapper
+// Wrapper component for tests
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };

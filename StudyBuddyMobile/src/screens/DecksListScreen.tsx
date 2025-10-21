@@ -77,10 +77,10 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
 
     try {
       if (query.trim() === "") {
-        // If search is empty, load all decks
+        // Empty search means show all decks
         await loadDecks();
       } else {
-        // Search with query
+        // Search for decks matching the query
         const searchResults = await ApiService.searchDecks(
           user.id,
           query.trim()
@@ -95,7 +95,7 @@ export default function DecksListScreen({ navigation }: DecksListScreenProps) {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    setSearchQuery(""); // Clear search on refresh
+    setSearchQuery(""); // Reset search when refreshing
     await loadDecks();
     setRefreshing(false);
   }, []);

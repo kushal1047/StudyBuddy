@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import ContentLoader, { Rect } from "react-content-loader/native";
 
+// Loading placeholder for flashcard items
 export default function FlashcardSkeleton() {
   return (
     <View

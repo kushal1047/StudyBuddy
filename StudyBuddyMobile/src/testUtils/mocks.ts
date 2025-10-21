@@ -1,4 +1,4 @@
-// Mock user data
+// Sample user for testing
 export const mockUser = {
   id: 1,
   username: "testuser",
@@ -6,7 +6,7 @@ export const mockUser = {
   createdAt: "2024-01-01T00:00:00Z",
 };
 
-// Mock deck data
+// Sample deck for testing
 export const mockDeck = {
   id: 1,
   title: "Test Deck",
@@ -17,7 +17,7 @@ export const mockDeck = {
   flashcardCount: 5,
 };
 
-// Mock flashcard data
+// Sample flashcard for testing
 export const mockFlashcard = {
   id: 1,
   question: "What is React?",
@@ -28,7 +28,7 @@ export const mockFlashcard = {
   deckTitle: "Test Deck",
 };
 
-// Mock statistics
+// Sample stats for testing
 export const mockStatistics = {
   totalDecks: 5,
   totalFlashcards: 25,

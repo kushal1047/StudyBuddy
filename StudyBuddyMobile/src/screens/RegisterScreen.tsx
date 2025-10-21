@@ -61,7 +61,7 @@ export default function RegisterScreen({ navigation }: RegisterScreenProps) {
         email: email.trim(),
         password,
       });
-      // Navigation will be handled automatically by the auth state change
+      // AuthContext will handle navigation after successful registration
     } catch (err: any) {
       Alert.alert(
         "Registration Failed",

@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyBuddy.API.DTOs
 {
+    // Deck data sent to client
     public class DeckDto
     {
         public int Id { get; set; }
@@ -13,6 +14,7 @@ namespace StudyBuddy.API.DTOs
         public int FlashcardCount { get; set; }
     }
 
+    // Data for creating a new deck
     public class CreateDeckDto
     {
         [Required]
@@ -23,6 +25,7 @@ namespace StudyBuddy.API.DTOs
         public string Description { get; set; } = string.Empty;
     }
 
+    // Data for updating deck info
     public class UpdateDeckDto
     {
         [MaxLength(100)]
@@ -32,6 +35,7 @@ namespace StudyBuddy.API.DTOs
         public string? Description { get; set; }
     }
 
+    // Paginated list of decks
     public class PaginatedDecksDto
     {
         public List<DeckDto> Decks { get; set; } = new List<DeckDto>();

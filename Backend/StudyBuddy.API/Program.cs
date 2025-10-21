@@ -4,20 +4,20 @@ using StudyBuddy.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Register services
 builder.Services.AddControllers();
 
-// Add Entity Framework
+// Set up database connection
 builder.Services.AddDbContext<StudyBuddyContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
     ));
 
-// Add Password Service
+// Register password hashing service
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 
-// Add CORS for React Native app
+// Allow cross-origin requests from mobile app
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactNative", builder =>
@@ -28,13 +28,13 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Set up API documentation
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Set up request handling pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -41,10 +41,10 @@ export default function StudyModeScreen({
     try {
       setIsLoading(true);
 
-      // Use real API now!
+      // Fetch flashcards from the API
       const cards = await ApiService.getFlashcardsByDeck(deckId);
 
-      // Shuffle flashcards for variety
+      // Randomize the order so it's not always the same
       const shuffled = [...cards].sort(() => Math.random() - 0.5);
       setFlashcards(shuffled);
       if (shuffled.length > 0) {
@@ -66,7 +66,7 @@ export default function StudyModeScreen({
     const newCorrect = isCorrect ? correctCount + 1 : correctCount;
     const newIncorrect = isCorrect ? incorrectCount : incorrectCount + 1;
 
-    // Always update the UI counters
+    // Update the score counters
     setCorrectCount(newCorrect);
     setIncorrectCount(newIncorrect);
 
@@ -81,7 +81,7 @@ export default function StudyModeScreen({
         console.log("Study session saved successfully");
       }
     } catch (error) {
-      // Don't block user if saving fails
+      // Continue even if we can't save the session
       console.error("Error saving study session:", error);
     }
 
@@ -90,7 +90,7 @@ export default function StudyModeScreen({
       setCurrentIndex(currentIndex + 1);
       setIsFlipped(false);
     } else {
-      // Finished studying — use the updated counts directly
+      // All done! Show the final results
       showCompletionAlert(newCorrect, newIncorrect);
     }
   };

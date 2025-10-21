@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import ContentLoader, { Rect } from "react-content-loader/native";
 
+// Loading placeholder for deck cards
 export default function DeckCardSkeleton() {
   return (
     <View

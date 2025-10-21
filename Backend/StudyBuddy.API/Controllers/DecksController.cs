@@ -45,7 +45,7 @@ namespace StudyBuddy.API.Controllers
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 10)
         {
-            // Check if user exists
+            // Make sure the user is valid
             if (!await _context.Users.AnyAsync(u => u.Id == userId))
             {
                 return NotFound("User not found");
@@ -115,7 +115,7 @@ namespace StudyBuddy.API.Controllers
         [HttpPost("user/{userId}")]
         public async Task<ActionResult<DeckDto>> PostDeck(int userId, CreateDeckDto createDeckDto)
         {
-            // Check if user exists
+            // Make sure the user is valid
             if (!await _context.Users.AnyAsync(u => u.Id == userId))
             {
                 return NotFound("User not found");

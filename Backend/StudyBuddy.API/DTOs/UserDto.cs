@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyBuddy.API.DTOs
 {
+    // User data sent to client (no password)
     public class UserDto
     {
         public int Id { get; set; }
@@ -10,6 +11,7 @@ namespace StudyBuddy.API.DTOs
         public DateTime CreatedAt { get; set; }
     }
 
+    // Data for creating a new user
     public class CreateUserDto
     {
         [Required]
@@ -25,6 +27,7 @@ namespace StudyBuddy.API.DTOs
         public string Password { get; set; } = string.Empty;
     }
 
+    // Data for updating user info
     public class UpdateUserDto
     {
         [MaxLength(50)]
